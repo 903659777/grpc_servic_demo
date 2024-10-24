@@ -1,0 +1,58 @@
+// 指定版本号为3
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+message Article {
+  int32 id = 1;
+  string name = 2;
+  string content = 3;
+  string create_time = 4;
+}
+
+message ArticleListRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message ArticleListResponse {
+  repeated Article articles = 1;
+}
+
+message ArticleDetailRequest {
+  int32 pk = 1;
+}
+
+message ArticleDetailResponse {
+  Article article = 1;
+}
+
+message CreateArticleRequest {
+  string name = 1;
+  string content = 2;
+  string create_time = 3;
+}
+
+message CreateArticleResponse {
+  Article article = 1;
+}
+
+message UpdateArticleRequest {
+  int32 id = 1;
+  string name = 2;
+  string content = 3;
+  string create_time = 4;
+}
+
+message DeleteArticleRequest {
+  int32 id = 1;
+}
+
+service ArticleService {
+  rpc ArticleList(ArticleListRequest) returns (ArticleListResponse);
+  rpc ArticleDetail(ArticleDetailRequest) returns (ArticleDetailResponse);
+  rpc CreateArticle(CreateArticleRequest) returns (CreateArticleResponse);
+  // 当不需要有返回的时候，google.protobuf.Empty，需要import "google/protobuf/empty.proto";
+  rpc UpdateArticle(UpdateArticleRequest) returns (google.protobuf.Empty);
+  rpc DeleteArticle(DeleteArticleRequest) returns (google.protobuf.Empty);
+}
+
