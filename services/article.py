@@ -20,6 +20,7 @@ class ArticleServer(article_pb2_grpc.ArticleServiceServicer):
             # row.to_dict()是在定义映射模型的时候继承SerializerMixin，在.to_dict()可以序列化
             articles = [row.to_dict() for row in rows]
         response = article_pb2.ArticleListResponse(articles=articles)
+        print("收到！")
         return response
 
     async def ArticleDetail(self, request: article_pb2.ArticleDetailRequest, context, session):
